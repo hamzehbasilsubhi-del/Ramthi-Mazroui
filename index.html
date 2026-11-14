@@ -29,13 +29,12 @@
                             500: '#b89252',
                             600: '#a37f43',
                             700: '#856430',
+                            800: '#6b4f24',
                             luxuryGold: '#b38b4d',
                         },
                         ivory: '#eae3dc',
                         vintageBg: '#eae3dc',
                         bronze: '#5c4a28',
-                        rsvpDark: '#6b5132',
-                        rsvpBorder: '#a38a6a',
                     },
                     fontFamily: {
                         tajawal: ['Tajawal', 'sans-serif'],
@@ -85,10 +84,6 @@
             letter-spacing: normal !important;
         }
 
-        .font-sloop {
-            font-family: 'Great Vibes', cursive;
-        }
-
         /* Section Title Style */
         .section-title {
             font-family: 'Cairo', sans-serif !important;
@@ -98,24 +93,12 @@
             letter-spacing: 0.01em !important;
         }
 
-        /* Modern & Extended Naskh Typography Classes with Kashida (Non-bold for Quranic Verse) */
-        .font-naskh-kashida {
+        /* Modern & Extended Naskh Typography Classes */
+        .font-naskh-extended {
             font-family: 'Amiri', serif;
             font-weight: 400;
             font-feature-settings: "rlig" 1, "calt" 1, "swsh" 1;
-            text-justify: kashida;
-            text-align: justify;
-            word-spacing: 0.1em;
-            color: #b38b4d;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-        }
-
-        /* Custom Luxury Calligraphy Font for Main Welcome Verse */
-        .luxury-script-text {
-            font-family: 'Aref Ruqaa', serif;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            color: #b38b4d;
+            color: #856431;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
         }
 
@@ -130,7 +113,7 @@
             pointer-events: none !important;
         }
 
-        /* Sequential Fade-in Animations Triggered After Cover Dismissal */
+        /* Sequential Fade-in Animations for Hero */
         @keyframes heroFadeInUp {
             0% {
                 opacity: 0;
@@ -153,6 +136,60 @@
 
         .hero-revealed .hero-reveal-2 {
             animation: heroFadeInUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+        }
+
+        /* Staggered Slow Sequential Fade-In (Bottom to Top) for Welcome Section */
+        .stagger-line {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1), transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--delay, 0s);
+            will-change: opacity, transform;
+        }
+
+        .stagger-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing Effect Styles */
+        .typing-container {
+            display: inline-block;
+            overflow: hidden;
+            border-left: 2px solid #b89252;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.02em;
+            animation: typingBlink 0.8s steps(1) infinite;
+        }
+
+        .typing-container.typing-done {
+            border-left: none;
+        }
+
+        @keyframes typingBlink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #b89252; }
+        }
+
+        /* Subtle Ambient Sway for Decorative Flowers */
+        @keyframes gentleFlowerSway {
+            0%, 100% {
+                transform: rotate(0deg) translateY(0);
+            }
+            50% {
+                transform: rotate(1.4deg) translateY(-3px);
+            }
+        }
+
+        .flower-ambient {
+            animation: gentleFlowerSway 7s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .flower-ambient-delayed {
+            animation: gentleFlowerSway 8s ease-in-out 1.5s infinite;
+            transform-origin: top center;
         }
 
         /* Smooth Top Fade for Clouds Section */
@@ -178,7 +215,7 @@
         .reveal {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
@@ -186,6 +223,19 @@
             opacity: 1;
             transform: translateY(0);
             will-change: auto;
+        }
+
+        /* Staggered Countdown Circles Reveal */
+        .countdown-item {
+            opacity: 0;
+            transform: translateY(14px) scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--item-delay, 0s);
+        }
+
+        .reveal.active .countdown-item {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .circle-container {
@@ -208,23 +258,16 @@
             transition: stroke-dashoffset 0.8s ease;
         }
 
-        /* RSVP Custom Options Styles */
-        .rsvp-card-option {
-            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            background-color: rgba(247, 245, 240, 0.7);
-            border: 1.5px solid #bdab93;
+        /* Subtle Luxury Button & Frame Polish */
+        .luxury-btn {
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .rsvp-radio:checked + .rsvp-card-option {
-            border-color: #6b5132;
-            background-color: rgba(238, 232, 222, 0.95);
-            box-shadow: 0 2px 8px rgba(107, 81, 50, 0.08);
+        .luxury-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px -4px rgba(133, 100, 48, 0.18);
         }
-        .rsvp-radio:checked + .rsvp-card-option .radio-dot-inner {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .rsvp-radio:checked + .rsvp-card-option .radio-dot-outer {
-            border-color: #6b5132;
+        .luxury-btn:active {
+            transform: translateY(0) scale(0.98);
         }
     </style>
 </head>
@@ -284,51 +327,79 @@
                 </a>
             </div>
 
-            <img src="images/flower-corner-right.png" alt="ورود زاوية يمنى" decoding="async" class="absolute -bottom-14 sm:-bottom-18 -right-6 sm:-right-8 w-44 sm:w-60 h-auto object-contain pointer-events-none z-30">
-            <img src="images/flower-corner-left.png" alt="ورود زاوية يسرى" decoding="async" class="absolute -bottom-14 sm:-bottom-18 -left-6 sm:-left-8 w-44 sm:w-60 h-auto object-contain pointer-events-none z-30">
+            <img src="images/flower-corner-right.png" alt="ورود زاوية يمنى" decoding="async" class="flower-ambient absolute -bottom-14 sm:-bottom-18 -right-6 sm:-right-8 w-44 sm:w-60 h-auto object-contain pointer-events-none z-30">
+            <img src="images/flower-corner-left.png" alt="ورود زاوية يسرى" decoding="async" class="flower-ambient-delayed absolute -bottom-14 sm:-bottom-18 -left-6 sm:-left-8 w-44 sm:w-60 h-auto object-contain pointer-events-none z-30">
         </section>
 
-        <!-- WELCOME SECTION -->
-        <section id="welcomeSection" class="relative z-20 w-full min-h-[580px] sm:min-h-[640px] -mt-20 sm:mt-[-88px] pt-16 sm:pt-20 pb-16 px-6 flex flex-col justify-start items-center text-center overflow-visible reveal">
-            <!-- Background Image -->
+        <!-- WELCOME SECTION (Staggered Bottom-to-Top Fade-In) -->
+        <section id="welcomeSection" class="relative z-20 w-full min-h-[580px] sm:min-h-[640px] -mt-20 sm:mt-[-88px] pt-16 sm:pt-20 pb-16 px-6 flex flex-col justify-start items-center text-center overflow-visible">
+            <!-- Background Image welcome-bg -->
             <img src="images/welcome-bg.png" alt="خلفية الترحيب" decoding="async" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
 
             <!-- Content Container Layer -->
-            <div class="relative z-10 max-w-sm mx-auto space-y-6 flex flex-col items-center justify-start pt-4">
+            <div id="welcomeStaggerContainer" class="relative z-10 space-y-4 max-w-sm mx-auto flex flex-col items-center w-full pt-4">
                 
-                <!-- Main Invitation Verses -->
-                <div class="luxury-script-text text-xl sm:text-2xl space-y-2 leading-relaxed max-w-[340px] mx-auto">
-                    <p>في ليلةٍ خَطّهــا القَدر بأجمَــل الألـوانِ،</p>
-                    <p>تلتَقــي القُلــوبُ لِتَكتبَ بِدايَــة فَصـلٍ جَديد</p>
-                    <p>مِلؤُه المَحبَة والأنــس، بِوجود مِن نُحـــبْ</p>
+                <!-- العنصر السفلي أولاً في التسلسل الصاعد (التاريخ والختام) -->
+                <div class="space-y-2 text-gold-700 font-tajawal w-full pt-2">
+                    <p class="stagger-line text-sm sm:text-base font-medium" style="--delay: 0.1s;">وذلك بمشيئة الله تعالى</p>
+                    <p class="stagger-line text-base sm:text-lg font-bold pt-0.5" style="--delay: 0.35s;">يوم الجمعة</p>
+                    <p class="stagger-line text-lg sm:text-xl font-extrabold tracking-widest dir-ltr" style="--delay: 0.6s;">04 . 12 . 2026</p>
+                    <p class="stagger-line text-sm sm:text-base font-medium pt-3 leading-relaxed max-w-[280px] mx-auto text-gold-700/90" style="--delay: 0.9s;">
+                        حضوركم يكتمل به فرحنا وتكتمل به أجمل أوقاتنا
+                    </p>
                 </div>
 
-                <!-- Highlighted Date -->
-                <div class="py-1">
-                    <span class="luxury-script-text text-2xl sm:text-3xl tracking-widest dir-ltr inline-block">
-                        04.12.2026
-                    </span>
+                <!-- تفاصيل المعرس والعروس -->
+                <div class="space-y-3 py-2 w-full flex flex-col items-center">
+                    <div class="stagger-line w-full text-center" style="--delay: 1.2s;">
+                        <span class="text-xs text-gold-700/80 block mb-0.5">العروس المصونة</span>
+                        <h3 class="text-base sm:text-lg font-bold text-bronze">كريمة السيد / علي حبروت سيف المزروعي</h3>
+                    </div>
+
+                    <div class="stagger-line my-1.5 flex items-center justify-center" style="--delay: 1.5s;">
+                        <svg width="36" height="52" viewBox="0 0 100 140" fill="#b89252" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 0 C35 25, 12 48, 12 75 C12 102, 32 122, 50 138 C68 122, 88 102, 88 75 C88 48, 65 25, 50 0 Z M50 32 C60 48, 72 65, 72 82 C72 96, 60 106, 50 106 C40 106, 28 96, 28 82 C28 65, 40 48, 50 32 Z" />
+                            <circle cx="50" cy="82" r="11" fill="#b89252" />
+                        </svg>
+                    </div>
+
+                    <div class="stagger-line w-full text-center" style="--delay: 1.8s;">
+                        <span class="text-xs text-gold-700/80 block mb-0.5">المعرس الكريم</span>
+                        <h3 class="text-base sm:text-lg font-bold text-bronze">خليفة عبدالرحمن عبدالله الرميثي</h3>
+                    </div>
                 </div>
 
-                <!-- Reordered Welcome Verse with Kashida Support -->
-                <div class="space-y-4 pt-2">
-                    <div class="font-naskh-kashida text-base sm:text-lg leading-loose max-w-[330px] mx-auto px-2 space-y-1 text-center">
-                        <p>حِــيــنَ يَــتَــلَاقَــى الــزَّهْــرُ وَالــنُّــور،</p>
-                        <p>يَــكْــتُــبُ الــعُــمْــرُ أَجْــمَــلَ فُــصُــولِــهِ فِي</p>
-                        <p>لَــيْــلَــةٍ يَــعُــمُّــهَــا الــدِّفْــءُ وَالأُ نْــس</p>
-                    </div>
+                <!-- عبارة الدعوة -->
+                <div class="space-y-1.5 text-gold-700 font-tajawal w-full font-normal text-xs sm:text-sm">
+                    <p class="stagger-line tracking-wide" style="--delay: 2.1s;">تتشرف بدعوتكم لحضور حفل زفاف نجليهما</p>
+                    <p class="stagger-line tracking-wide" style="--delay: 2.35s;">بكل حب ومودة</p>
+                </div>
 
-                    <!-- Divider Image -->
-                    <div class="flex items-center justify-center pt-2">
-                        <img src="images/divider.png" alt="فاصل زخرفي" decoding="async" class="w-36 h-auto object-contain opacity-85">
+                <div class="stagger-line w-16 h-[1px] bg-gold-500/30 mx-auto my-1" style="--delay: 2.6s;"></div>
+
+                <!-- أسماء الأمهات والعائلات -->
+                <div class="space-y-1.5 text-gold-700 font-tajawal w-full font-bold text-sm sm:text-base pb-1">
+                    <div class="stagger-line grid grid-cols-[1fr_auto_1fr] items-center text-center w-full px-2" style="--delay: 2.85s;">
+                        <div class="text-center">
+                            <span class="block text-xs sm:text-sm text-gold-700/80 font-medium">الســــيدة</span>
+                            <span class="block text-xs sm:text-sm font-bold text-gold-800 pt-0.5">عاشة محمد سالم المرر</span>
+                        </div>
+                        <div class="px-2">
+                            <span class="text-sm font-bold text-gold-600">و</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="block text-xs sm:text-sm text-gold-700/80 font-medium">الســــيدة</span>
+                            <span class="block text-xs sm:text-sm font-bold text-gold-800 pt-0.5">مريم خليفه المزروعي</span>
+                        </div>
                     </div>
+                    <p class="stagger-line text-gold-800 text-base sm:text-lg font-extrabold pb-1 pt-1" style="--delay: 3.1s;">أفراح الرميثي والمزروعي</p>
                 </div>
 
             </div>
         </section>
 
         <!-- COUNTDOWN TIMER SECTION -->
-        <section id="countdownSection" class="relative pt-12 pb-10 px-0 text-center bg-[#eae3dc] flex flex-col items-center justify-center overflow-hidden reveal z-20">
+        <section id="countdownSection" class="relative pt-10 pb-10 px-0 text-center bg-[#eae3dc] flex flex-col items-center justify-center overflow-hidden reveal z-20">
             <div class="relative z-10 w-full flex flex-col items-center">
                 <div class="space-y-2 mb-8 px-4">
                     <h2 class="section-title text-gold-700">الوقت المتبقي</h2>
@@ -338,7 +409,7 @@
                 </div>
 
                 <div id="countdown" class="grid grid-cols-4 gap-1.5 sm:gap-3 max-w-[360px] mx-auto px-2 sm:px-4 w-full justify-items-center">
-                    <div class="flex flex-col items-center">
+                    <div class="countdown-item flex flex-col items-center" style="--item-delay: 0.1s;">
                         <div class="circle-container flex items-center justify-center">
                             <svg class="w-full h-full" viewBox="0 0 80 80">
                                 <circle class="circle-bg" cx="40" cy="40" r="36" />
@@ -349,7 +420,7 @@
                         <span class="text-xs sm:text-sm text-gold-700 font-bold font-tajawal mt-2">يوم</span>
                     </div>
 
-                    <div class="flex flex-col items-center">
+                    <div class="countdown-item flex flex-col items-center" style="--item-delay: 0.25s;">
                         <div class="circle-container flex items-center justify-center">
                             <svg class="w-full h-full" viewBox="0 0 80 80">
                                 <circle class="circle-bg" cx="40" cy="40" r="36" />
@@ -360,7 +431,7 @@
                         <span class="text-xs sm:text-sm text-gold-700 font-bold font-tajawal mt-2">ساعة</span>
                     </div>
 
-                    <div class="flex flex-col items-center">
+                    <div class="countdown-item flex flex-col items-center" style="--item-delay: 0.4s;">
                         <div class="circle-container flex items-center justify-center">
                             <svg class="w-full h-full" viewBox="0 0 80 80">
                                 <circle class="circle-bg" cx="40" cy="40" r="36" />
@@ -371,7 +442,7 @@
                         <span class="text-xs sm:text-sm text-gold-700 font-bold font-tajawal mt-2">دقيقة</span>
                     </div>
 
-                    <div class="flex flex-col items-center">
+                    <div class="countdown-item flex flex-col items-center" style="--item-delay: 0.55s;">
                         <div class="circle-container flex items-center justify-center">
                             <svg class="w-full h-full" viewBox="0 0 80 80">
                                 <circle class="circle-bg" cx="40" cy="40" r="36" />
@@ -385,71 +456,12 @@
             </div>
         </section>
 
-        <!-- INVITATION CARD SECTION -->
-        <section id="invitationCard" class="pb-12 pt-10 px-6 sm:px-8 text-center bg-[#eae3dc] relative flex flex-col items-center justify-center overflow-hidden reveal z-20">
-            <img src="images/names-bg.png" alt="خلفية الأسماء" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-100 pointer-events-none z-0">
-
-            <div class="relative z-10 space-y-4 max-w-sm mx-auto flex flex-col items-center w-full">
-                <!-- أسماء العائلات والأمهات بجانب بعضهما -->
-                <div class="space-y-1.5 text-gold-700 font-tajawal w-full font-bold text-sm sm:text-base pb-1">
-                    <p class="text-gold-800 text-base sm:text-lg font-extrabold pb-1">أفراح الرميثي والمزروعي</p>
-                    <div class="grid grid-cols-[1fr_auto_1fr] items-center text-center w-full px-2">
-                        <div class="text-center">
-                            <span class="block text-xs sm:text-sm text-gold-700/80 font-medium">الســــيدة</span>
-                            <span class="block text-xs sm:text-sm font-bold text-gold-800 pt-0.5">عاشة محمد سالم المرر</span>
-                        </div>
-                        <div class="px-2">
-                            <span class="text-sm font-bold text-gold-600">و</span>
-                        </div>
-                        <div class="text-center">
-                            <span class="block text-xs sm:text-sm text-gold-700/80 font-medium">الســــيدة</span>
-                            <span class="block text-xs sm:text-sm font-bold text-gold-800 pt-0.5">مريم خليفه المزروعي</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w-16 h-[1px] bg-gold-500/30 mx-auto my-1"></div>
-
-                <div class="space-y-1 text-gold-700 font-tajawal w-full font-normal text-xs sm:text-sm">
-                    <p class="tracking-wide">بكل حب ومودة</p>
-                    <p class="tracking-wide">تتشرف بدعوتكم لحضور حفل زفاف نجليهما</p>
-                </div>
-
-                <!-- تفاصيل المعرس والعروس مع تصميم حرف الواو الزخرفي المطابق للصورة المرجعية -->
-                <div class="space-y-3 py-2 w-full flex flex-col items-center">
-                    <div class="w-full text-center">
-                        <span class="text-xs text-gold-700/80 block mb-0.5">المعرس الكريم</span>
-                        <h3 class="text-base sm:text-lg font-bold text-bronze">خليفة عبدالرحمن عبدالله الرميثي</h3>
-                    </div>
-
-                    <!-- تصميم حرف الواو الزخرفي المطابق تماماً للصورة المرجعية -->
-                    <div class="my-1.5 flex items-center justify-center">
-                        <svg width="36" height="52" viewBox="0 0 100 140" fill="#b89252" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 0 C35 25, 12 48, 12 75 C12 102, 32 122, 50 138 C68 122, 88 102, 88 75 C88 48, 65 25, 50 0 Z M50 32 C60 48, 72 65, 72 82 C72 96, 60 106, 50 106 C40 106, 28 96, 28 82 C28 65, 40 48, 50 32 Z" />
-                            <circle cx="50" cy="82" r="11" fill="#b89252" />
-                        </svg>
-                    </div>
-
-                    <div class="w-full text-center">
-                        <span class="text-xs text-gold-700/80 block mb-0.5">العروس المصونة</span>
-                        <h3 class="text-base sm:text-lg font-bold text-bronze">كريمة السيد / علي حبروت سيف المزروعي</h3>
-                    </div>
-                </div>
-
-                <div class="space-y-2 text-gold-700 font-tajawal w-full pt-2">
-                    <p class="text-sm sm:text-base font-medium">وذلك بمشيئة الله تعالى</p>
-                    <p class="text-base sm:text-lg font-bold pt-0.5">يوم الجمعة</p>
-                    <p class="text-lg sm:text-xl font-extrabold tracking-widest dir-ltr">04 . 12 . 2026</p>
-                    <p class="text-sm sm:text-base font-medium pt-3 leading-relaxed max-w-[280px] mx-auto text-gold-700/90">
-                        حضوركم يكتمل به فرحنا وتكتمل به أجمل أوقاتنا
-                    </p>
-                </div>
-            </div>
-        </section>
-
         <!-- EVENT DETAILS SECTION -->
-        <section id="details" class="py-12 px-6 bg-[#eae3dc] text-center reveal relative z-10">
-            <div class="max-w-xs mx-auto space-y-5">
+        <section id="details" class="py-12 px-6 bg-[#eae3dc] text-center reveal relative overflow-hidden z-10">
+            <!-- ورود الزاوية اليمنى فوق موقع الحفل -->
+            <img src="images/dress-flower-tr.png" alt="ورود الزاوية العليا اليمنى" decoding="async" class="flower-ambient-delayed absolute top-0 -right-2 w-44 sm:w-52 h-auto object-contain pointer-events-none z-20 opacity-95">
+
+            <div class="max-w-xs mx-auto space-y-5 relative z-10">
                 <div class="space-y-2">
                     <h2 class="section-title text-gold-700">موقع الحفل</h2>
                     <div class="flex items-center justify-center">
@@ -457,18 +469,18 @@
                     </div>
                 </div>
 
-                <div class="w-full my-2 flex items-center justify-center">
-                    <img src="images/venue.png" alt="مكان الحفل - حديقة البيت" decoding="async" class="w-full h-auto object-contain rounded-2xl shadow-sm">
+                <div class="w-full my-2 flex items-center justify-center transition-transform duration-700 hover:scale-[1.02]">
+                    <img src="images/venue.png" alt="مكان الحفل - حديقة منزل العروس" decoding="async" class="w-full h-auto object-contain rounded-2xl shadow-sm">
                 </div>
 
                 <div class="space-y-1 text-sm text-bronze/90 font-tajawal py-1">
-                    <p class="font-bold text-base sm:text-lg text-gold-700">العرس في حديقة البيت</p>
+                    <p class="font-bold text-base sm:text-lg text-gold-700">العرس في حديقة منزل العروس</p>
                     <p class="text-xs sm:text-sm leading-relaxed text-bronze/80">منطقة الخبيصي، العين، شارع الظبي، فيلا 139 - الإمارات العربية المتحدة</p>
                     <p class="text-xs font-semibold text-gold-600 pt-1">الساعة 8 مساءً</p>
                 </div>
 
                 <div class="w-full my-2 flex items-center justify-center">
-                    <div class="relative w-full max-w-[310px] aspect-square rounded-[32px] overflow-hidden shadow-md flex items-center justify-center bg-[#eae3dc]">
+                    <div class="relative w-full max-w-[310px] aspect-square rounded-[32px] overflow-hidden shadow-md flex items-center justify-center bg-[#eae3dc] transition-shadow duration-500 hover:shadow-xl">
                         <div class="absolute inset-[3%] rounded-[28px] overflow-hidden">
                             <iframe 
                                 title="خريطة موقع الحفل"
@@ -484,136 +496,32 @@
                 </div>
 
                 <div class="pt-2 flex flex-col items-center gap-3 max-w-[260px] mx-auto">
-                    <a href="https://maps.google.com/?q=Al+Khبیصی+Al+Ain" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-6 border border-gold-600/70 hover:bg-gold-500/10 text-gold-700 rounded-full text-center text-xs sm:text-sm font-tajawal font-bold uppercase transition duration-300">
+                    <a href="https://maps.google.com/?q=Al+Khبیصی+Al+Ain" target="_blank" rel="noopener noreferrer" class="luxury-btn w-full py-2.5 px-6 border border-gold-600/70 hover:bg-gold-500/10 text-gold-700 rounded-full text-center text-xs sm:text-sm font-tajawal font-bold uppercase">
                         موقع الحفل (Map)
                     </a>
-                    <a id="addToCalendar" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-4 text-gold-700/90 hover:text-gold-700 rounded-full text-center text-xs sm:text-sm font-bold font-tajawal transition flex items-center justify-center gap-1.5">
+                    <a id="addToCalendar" href="#" target="_blank" rel="noopener noreferrer" class="luxury-btn w-full py-2 px-4 text-gold-700/90 hover:text-gold-700 rounded-full text-center text-xs sm:text-sm font-bold font-tajawal flex items-center justify-center gap-1.5">
                         <i data-lucide="calendar-plus" class="w-4 h-4"></i>
                         إضافة للتقويم
                     </a>
                 </div>
             </div>
+
+            <!-- ورود الزاوية اليسرى السفلية أسفل قسم موقع الحفل -->
+            <img src="images/dress-flower-bl.png" alt="ورود الزاوية السفلى اليسرى" decoding="async" class="flower-ambient absolute bottom-0 -left-2 w-44 sm:w-52 h-auto object-contain pointer-events-none z-20 opacity-95">
         </section>
 
-        <!-- DRESS CODE & GIFT PREFERENCE SECTION -->
-        <section id="dressCodeSection" class="py-16 px-6 bg-[#eae3dc] text-center relative overflow-hidden reveal z-10">
-            <img src="images/names-bg.png" alt="خلفية المناسبة" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-100 pointer-events-none z-0">
-            <img src="images/dress-flower-tr.png" alt="ورود الزاوية العليا اليمنى" decoding="async" class="absolute top-0 -right-2 w-44 sm:w-52 h-auto object-contain pointer-events-none z-20 opacity-95">
-            <img src="images/dress-flower-bl.png" alt="ورود الزاوية السفلى اليسرى" decoding="async" class="absolute bottom-0 -left-2 w-44 sm:w-52 h-auto object-contain pointer-events-none z-20 opacity-95">
-
-            <div class="relative z-10 max-w-[300px] mx-auto space-y-8 flex flex-col items-center py-4">
-                <div class="space-y-3">
-                    <h2 class="font-free-calligraphy text-2xl sm:text-3xl text-gold-700 font-bold tracking-wide">بمحبة</h2>
-                    <p class="text-sm sm:text-base font-tajawal text-bronze/90 leading-relaxed">
-                        حضوركم يسعدنا ويكمل بهجتنا، ولضمان راحتكم وراحة أطفالكم نعتذر عن استقبال صغاركم الأحباء.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- RSVP SECTION -->
-        <section id="rsvp" class="py-10 px-6 bg-[#eae3dc] reveal z-10">
-            <div class="max-w-[320px] mx-auto space-y-5">
-                <div class="w-full flex justify-center items-center pt-2">
-                    <img src="images/chair.png" alt="كرسي الزفاف" decoding="async" class="w-24 sm:w-28 h-auto object-contain filter drop-shadow-sm">
-                </div>
-
-                <div class="text-center space-y-1">
-                    <h2 class="section-title text-2xl sm:text-3xl text-rsvpDark tracking-tight">يرجى تأكيد الحضور</h2>
-                </div>
-
-                <form id="rsvpForm" class="space-y-4">
-                    <div class="space-y-1.5">
-                        <div class="text-right space-y-0.5 pr-1">
-                            <label for="guestName" class="text-sm font-bold text-rsvpDark block">الاسم الكامل</label>
-                            <p class="text-xs text-rsvpDark/70">الاسم الكريم</p>
-                        </div>
-                        <div class="relative flex items-center">
-                            <input type="text" id="guestName" name="guestName" required placeholder="اسمك الكريم" class="w-full bg-[#f8f5ef]/90 border border-[#c4b39b] rounded-xl py-3 px-4 pl-10 text-right text-sm text-rsvpDark placeholder-[#a19079] focus:outline-none focus:border-rsvpDark transition shadow-sm">
-                            <div class="absolute left-3.5 text-[#a19079] pointer-events-none">
-                                <i data-lucide="wallet" class="w-4 h-4"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2 pt-1">
-                        <div class="text-right space-y-0.5 pr-1">
-                            <span class="text-sm font-bold text-rsvpDark block">هل ستنضم إلينا؟</span>
-                            <p class="text-xs text-rsvpDark/70">هل ستحضر؟</p>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="block relative cursor-pointer select-none">
-                                <input type="radio" id="attending" name="attendance" value="حضور" class="hidden rsvp-radio" checked>
-                                <div class="rsvp-card-option flex items-center justify-between p-3.5 rounded-xl">
-                                    <div class="text-right">
-                                        <p class="text-sm font-bold text-rsvpDark leading-tight">بكل سرور أقبل</p>
-                                        <p class="text-xs text-rsvpDark/70 mt-0.5">أقبل الدعوة</p>
-                                    </div>
-                                    <div class="radio-dot-outer w-5 h-5 rounded-full border border-[#8a7256] flex items-center justify-center flex-shrink-0 transition">
-                                        <div class="radio-dot-inner w-2.5 h-2.5 rounded-full bg-rsvpDark opacity-0 scale-50 transition duration-200"></div>
-                                    </div>
-                                </div>
-                            </label>
-
-                            <label class="block relative cursor-pointer select-none">
-                                <input type="radio" id="declining" name="attendance" value="اعتذار" class="hidden rsvp-radio">
-                                <div class="rsvp-card-option flex items-center justify-between p-3.5 rounded-xl">
-                                    <div class="text-right">
-                                        <p class="text-sm font-bold text-rsvpDark leading-tight">بأسف أعتذر</p>
-                                        <p class="text-xs text-rsvpDark/70 mt-0.5">أعتذر عن الحضور</p>
-                                    </div>
-                                    <div class="radio-dot-outer w-5 h-5 rounded-full border border-[#8a7256] flex items-center justify-center flex-shrink-0 transition">
-                                        <div class="radio-dot-inner w-2.5 h-2.5 rounded-full bg-rsvpDark opacity-0 scale-50 transition duration-200"></div>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1.5 pt-1">
-                        <div class="text-right space-y-0.5 pr-1">
-                            <span class="text-sm font-bold text-rsvpDark block">عدد المدعوين</span>
-                            <p class="text-xs text-rsvpDark/70">المدعوين المشمولين</p>
-                        </div>
-                        
-                        <div class="flex items-center justify-between bg-[#f8f5ef]/90 border border-[#c4b39b] rounded-xl py-2 px-4 shadow-sm">
-                            <button type="button" id="btnPlus" aria-label="زيادة العدد" class="w-9 h-9 flex items-center justify-center text-rsvpDark text-xl font-bold hover:bg-black/5 active:scale-95 rounded-lg transition">
-                                +
-                            </button>
-                            <span id="guestsDisplay" class="text-base font-bold text-rsvpDark tracking-widest dir-ltr">01</span>
-                            <button type="button" id="btnMinus" aria-label="إنقاص العدد" class="w-9 h-9 flex items-center justify-center text-rsvpDark text-xl font-bold hover:bg-black/5 active:scale-95 rounded-lg transition">
-                                −
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="pt-3">
-                        <button type="submit" class="w-full bg-[#6b5132] hover:bg-[#584127] active:scale-[0.98] text-white py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide transition duration-200 flex items-center justify-center gap-2 shadow-md">
-                            <span>تأكيد</span>
-                            <i data-lucide="send" class="w-4 h-4 transform rotate-[45deg]"></i>
-                        </button>
-                    </div>
-
-                </form>
-
-                <div id="thankYouMessage" class="hidden text-center py-6 space-y-2 bg-[#f8f5ef]/90 border border-[#c4b39b] rounded-xl shadow-sm">
-                    <i data-lucide="heart" class="w-7 h-7 text-rsvpDark mx-auto fill-rsvpDark"></i>
-                    <h3 class="text-base font-bold text-rsvpDark font-tajawal">تم استلام ردكم بنجاح!</h3>
-                    <p class="text-xs text-rsvpDark/80 font-tajawal">شكراً لكم، ننتظركم بشوق لنحتفل معاً.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CLOUDS & FINAL CLOSING SECTION -->
-        <section class="relative w-full py-20 px-6 text-center bg-[#eae3dc] flex flex-col items-center justify-center overflow-hidden reveal sm:rounded-b-[40px] z-10" style="padding-bottom: max(5rem, env(safe-area-inset-bottom));">
+        <!-- CLOUDS & FINAL CLOSING SECTION (With Typing Effect in 2 Lines) -->
+        <section id="closingSection" class="relative w-full py-20 px-6 text-center bg-[#eae3dc] flex flex-col items-center justify-center overflow-hidden reveal sm:rounded-b-[40px] z-10" style="padding-bottom: max(5rem, env(safe-area-inset-top));">
             <img src="images/clouds.png" alt="غيوم" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-90 pointer-events-none z-0">
             <div class="clouds-fade-top"></div>
 
-            <div class="relative z-10 space-y-5 max-w-xs mx-auto flex flex-col items-center">
-                <p class="text-xl sm:text-2xl text-gold-700 font-free-calligraphy leading-relaxed pt-2 font-bold">
-                    حضوركم هو أجمل هدية تزيّن بداية رحلتنا
-                </p>
+            <div class="relative z-10 space-y-3 max-w-xs mx-auto flex flex-col items-center">
+                <div class="min-h-[2.5rem] flex items-center justify-center">
+                    <p id="typingLine1" class="text-xl sm:text-2xl text-gold-700 font-free-calligraphy font-bold typing-container" style="visibility: hidden;"></p>
+                </div>
+                <div class="min-h-[2.5rem] flex items-center justify-center">
+                    <p id="typingLine2" class="text-xl sm:text-2xl text-gold-700 font-free-calligraphy font-bold typing-container" style="visibility: hidden;"></p>
+                </div>
             </div>
         </section>
 
@@ -747,6 +655,7 @@
                 coverVideo.addEventListener('ended', dismissCover);
             }
 
+            // General Section Scroll Reveal
             const revealElements = document.querySelectorAll('.reveal');
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
@@ -756,13 +665,82 @@
                             observer.unobserve(entry.target);
                         }
                     });
-                }, { rootMargin: '0px 0px -50px 0px', threshold: 0.05 });
+                }, { rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
 
                 revealElements.forEach(el => observer.observe(el));
             } else {
                 revealElements.forEach(el => el.classList.add('active'));
             }
 
+            // Staggered Bottom-to-Top Scroll Trigger for Welcome Section
+            const welcomeSection = document.getElementById('welcomeSection');
+            const staggerLines = document.querySelectorAll('#welcomeStaggerContainer .stagger-line');
+
+            if (welcomeSection && staggerLines.length > 0) {
+                if ('IntersectionObserver' in window) {
+                    const welcomeObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                staggerLines.forEach(line => line.classList.add('visible'));
+                                welcomeObserver.unobserve(entry.target);
+                            }
+                        });
+                    }, { rootMargin: '0px 0px -15% 0px', threshold: 0.15 });
+
+                    welcomeObserver.observe(welcomeSection);
+                } else {
+                    staggerLines.forEach(line => line.classList.add('visible'));
+                }
+            }
+
+            // Typing Effect for Closing Section
+            const closingSection = document.getElementById('closingSection');
+            const typingLine1 = document.getElementById('typingLine1');
+            const typingLine2 = document.getElementById('typingLine2');
+            let typingTriggered = false;
+
+            const text1 = "حضوركم هو أجمل هدية";
+            const text2 = "تزيّن بداية رحلتنا";
+
+            function typeWriter(element, text, speed, callback) {
+                element.style.visibility = 'visible';
+                let i = 0;
+                function typing() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(typing, speed);
+                    } else {
+                        element.classList.add('typing-done');
+                        if (callback) callback();
+                    }
+                }
+                typing();
+            }
+
+            if (closingSection && typingLine1 && typingLine2) {
+                if ('IntersectionObserver' in window) {
+                    const typingObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !typingTriggered) {
+                                typingTriggered = true;
+                                typeWriter(typingLine1, text1, 90, () => {
+                                    typeWriter(typingLine2, text2, 90);
+                                });
+                                typingObserver.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.3 });
+
+                    typingObserver.observe(closingSection);
+                } else {
+                    typeWriter(typingLine1, text1, 90, () => {
+                        typeWriter(typingLine2, text2, 90);
+                    });
+                }
+            }
+
+            // Countdown Timer
             const eventDate = new Date('December 4, 2026 20:00:00').getTime();
             const circumference = 226.19;
 
@@ -839,43 +817,13 @@
 
             window.addEventListener('beforeunload', stopCountdown);
 
+            // Google Calendar Link
             const addToCalBtn = document.getElementById('addToCalendar');
             if (addToCalBtn) {
                 const calTitle = encodeURIComponent("حفل زفاف الرميثي والمزروعي");
-                const calDetails = encodeURIComponent("نتشرف بحضوركم حفل زفافنا في حديقة البيت – منطقة الخبيصي، العين.");
+                const calDetails = encodeURIComponent("نتشرف بحضوركم حفل زفافنا في حديقة منزل العروس – منطقة الخبيصي، العين.");
                 const calLocation = encodeURIComponent("Al Khabisi, Al Ain, UAE");
                 addToCalBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&dates=20261204T160000Z/20261204T200000Z&details=${calDetails}&location=${calLocation}`;
-            }
-
-            let currentGuestsCount = 1;
-            const guestsDisplay = document.getElementById('guestsDisplay');
-            const btnPlus = document.getElementById('btnPlus');
-            const btnMinus = document.getElementById('btnMinus');
-
-            if (btnPlus && btnMinus && guestsDisplay) {
-                btnPlus.addEventListener('click', () => {
-                    if (currentGuestsCount < 10) {
-                        currentGuestsCount++;
-                        guestsDisplay.innerText = String(currentGuestsCount).padStart(2, '0');
-                    }
-                });
-
-                btnMinus.addEventListener('click', () => {
-                    if (currentGuestsCount > 1) {
-                        currentGuestsCount--;
-                        guestsDisplay.innerText = String(currentGuestsCount).padStart(2, '0');
-                    }
-                });
-            }
-
-            const rsvpForm = document.getElementById('rsvpForm');
-            if (rsvpForm) {
-                rsvpForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    this.classList.add('hidden');
-                    const thankYouMsg = document.getElementById('thankYouMessage');
-                    if (thankYouMsg) thankYouMsg.classList.remove('hidden');
-                });
             }
         });
     </script>
